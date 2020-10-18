@@ -4,7 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/HumanTracking/HumanBodyTracking3D.unity
+    guid: 9fc1f5ed98d414310a8b9e659c295d7c
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: f9adf481db04341faa69c7392a1d4c7d, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: b8b2d4a1051804bde9345d46a9b12ea2, type: 2}
