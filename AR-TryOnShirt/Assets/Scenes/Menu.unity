@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: Main
+  SceneName2: Main1
 --- !u!4 &299938109
 Transform:
   m_ObjectHideFlags: 0
@@ -903,7 +904,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 299938108}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: BackToMenu
+        m_MethodName: BackToMenu2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

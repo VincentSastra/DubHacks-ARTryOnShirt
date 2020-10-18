@@ -7,6 +7,7 @@ public class ChangeScene : MonoBehaviour
 {
 
     public string SceneName;
+    public string SceneName2;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +23,10 @@ public class ChangeScene : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene(SceneName);
+    }
+
+    public void BackToMenu2()
+    {
+        SceneManager.LoadScene(SceneName2);
     }
 }
