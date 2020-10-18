@@ -110,6 +110,10 @@ namespace UnityEngine.XR.ARFoundation.Samples
         [Tooltip("The root bone of the skeleton.")]
         Transform m_SkeletonRoot;
 
+        [SerializeField]
+        [Tooltip("The root bone of the GIVEN CONTROLLED ROBOT.")]
+        Transform m_GivenRoot;
+
         /// <summary>
         /// Get/Set the root bone of the skeleton.
         /// </summary>
@@ -125,7 +129,25 @@ namespace UnityEngine.XR.ARFoundation.Samples
             }
         }
 
+        /// <summary>
+        /// Get/Set the root bone of the skeleton.
+        /// </summary>
+        public Transform givenRoot
+        {
+            get
+            {
+                return m_GivenRoot;
+            }
+            set
+            {
+                m_GivenRoot = value;
+            }
+        }
+
         Transform[] m_BoneMapping = new Transform[k_NumSkeletonJoints];
+        Transform[] m_GivenMapping = new Transform[k_NumSkeletonJoints];
+        Quaternion[] m_RotationCorrection = new Quaternion[k_NumSkeletonJoints];
+        Vector3[] m_LocationCorrection = new Vector3[k_NumSkeletonJoints];
 
         public void InitializeSkeletonJoints()
         {
@@ -133,6 +155,18 @@ namespace UnityEngine.XR.ARFoundation.Samples
             // store the skeleton joints at the corresponding index in the m_BoneMapping array.
             // This assumes that the bones in the skeleton are named as per the
             // JointIndices enum above.
+            Queue<Transform> nodes1 = new Queue<Transform>();
+            nodes1.Enqueue(m_GivenRoot);
+            while (nodes1.Count > 0)
+            {
+                Transform next = nodes1.Dequeue();
+                for (int i = 0; i < next.childCount; ++i)
+                {
+                    nodes1.Enqueue(next.GetChild(i));
+                }
+                ProcessGiven(next);
+            }
+            
             Queue<Transform> nodes = new Queue<Transform>();
             nodes.Enqueue(m_SkeletonRoot);
             while (nodes.Count > 0)
@@ -143,6 +177,27 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     nodes.Enqueue(next.GetChild(i));
                 }
                 ProcessJoint(next);
+            }
+
+            
+            for (int i = 0; i < k_NumSkeletonJoints; i++) {
+                var bone = m_BoneMapping[i];
+                var given = m_GivenMapping[i];
+                if (bone != null) {
+                    m_RotationCorrection[i] = Quaternion.Inverse(bone.transform.localRotation) * given.transform.localRotation;
+                    m_LocationCorrection[i] = given.transform.localPosition - bone.transform.localPosition;
+                }
+            }
+
+            for (int i = 0; i < k_NumSkeletonJoints; i++) {
+                var bone = m_BoneMapping[i];
+                if (bone != null) {
+                    Console.WriteLine($"\n\n{bone}");
+                    Console.WriteLine($"{m_LocationCorrection[i]}");
+                    Console.WriteLine($"{m_RotationCorrection[i]}");
+                } else {
+                    Console.WriteLine($"Indice {i} not found.");
+                }
             }
         }
 
@@ -158,8 +213,8 @@ namespace UnityEngine.XR.ARFoundation.Samples
                 var bone = m_BoneMapping[i];
                 if (bone != null)
                 {
-                    bone.transform.localPosition = joint.localPose.position;
-                    bone.transform.localRotation = joint.localPose.rotation;
+                    bone.transform.localPosition = joint.localPose.position - m_LocationCorrection[i];
+                    bone.transform.localRotation = m_RotationCorrection[i] * joint.localPose.rotation;
                 }
             }
         }
@@ -176,6 +231,20 @@ namespace UnityEngine.XR.ARFoundation.Samples
                 Debug.LogWarning($"{joint.name} was not found.");
             }
         }
+
+        void ProcessGiven(Transform joint)
+        {
+            int index = GetJointIndex(joint.name);
+            if (index >= 0 && index < k_NumSkeletonJoints)
+            {
+                m_GivenMapping[index] = joint;
+            }
+            else
+            {
+                Debug.LogWarning($"{joint.name} was not found.");
+            }
+        }
+
 
         // Returns the integer value corresponding to the JointIndices enum value
         // passed in as a string.
