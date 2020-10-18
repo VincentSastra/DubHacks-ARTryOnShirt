@@ -23,7 +23,7 @@ Steps
 
 Unity will automatically open XCode
 
-6. Sign &
+6. Sign your code in XCode
 7. Plug in your IOS device & compile!
 
 If you run at some technical issue, feel free to email
