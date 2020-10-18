@@ -3,12 +3,14 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
     public class HumanBodyTracker : MonoBehaviour
     {
-        public bool update = false;
+        public Toggle updateButton;
+        private bool update;
 
         [SerializeField]
         [Tooltip("The Skeleton prefab to be controlled.")]
@@ -37,6 +39,18 @@ namespace UnityEngine.XR.ARFoundation.Samples
         }
 
         Dictionary<TrackableId, BoneController> m_SkeletonTracker = new Dictionary<TrackableId, BoneController>();
+
+        void Start() 
+        {
+        }
+
+        public void ButtonPressed() {
+            Debug.Log("Button Pressed");
+            if (updateButton.isOn)
+                update = false;
+            else
+                update = true;
+        }
 
         void OnEnable()
         {

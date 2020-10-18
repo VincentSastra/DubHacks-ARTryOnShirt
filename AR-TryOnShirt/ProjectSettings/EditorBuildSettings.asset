@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/HumanTracking/Main.unity
+    path: Assets/Scenes/Main.unity
     guid: 9fc1f5ed98d414310a8b9e659c295d7c
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: ab6de9b76dbc547e5837c0e28d76dadd
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: f9adf481db04341faa69c7392a1d4c7d, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: b8b2d4a1051804bde9345d46a9b12ea2, type: 2}
