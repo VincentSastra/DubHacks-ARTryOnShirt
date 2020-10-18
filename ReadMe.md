@@ -13,11 +13,11 @@ Steps
 1. Clone this repository
 2. Open the folder 'AR-TryOnShirt' as a Unity Project
 3. Configure Build Settings:
-  -Change build target to IOS
-  -Add the scenes 'Main', 'Main1', 'Menu' to Scenes to Build
+    - Change build target to IOS
+    - Add the scenes 'Main', 'Main1', 'Menu' to Scenes to Build
 4. Configure Project Settings:
-  -Put a description on Player->IOS->Other Settings-> Camera Usage Description
-  -Allow XR Plug-in Management->Plug-in Providers->ARKit
+    - Put a description on Player->IOS->Other Settings-> Camera Usage Description
+    - Allow XR Plug-in Management->Plug-in Providers->ARKit
 5. Build & Run
 
 Unity will automatically open XCode
