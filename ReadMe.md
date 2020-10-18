@@ -15,6 +15,7 @@ Steps
 3. Configure Build Settings:
     - Change build target to IOS
     - Add the scenes 'Main', 'Main1', 'Menu' to Scenes to Build
+    - Set the 'Menu' scene to be the first scene to build
 4. Configure Project Settings:
     - Put a description on Player->IOS->Other Settings-> Camera Usage Description
     - Allow XR Plug-in Management->Plug-in Providers->ARKit
