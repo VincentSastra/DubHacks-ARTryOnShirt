@@ -3,11 +3,13 @@ using UnityEngine;
 using UnityEngine.XR.ARSubsystems;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 namespace UnityEngine.XR.ARFoundation.Samples
 {
     public class BoneController : MonoBehaviour
     {
+        
         // 3D joint skeleton
         enum JointIndices
         {
@@ -105,6 +107,8 @@ namespace UnityEngine.XR.ARFoundation.Samples
             RightHandThumbEnd = 90, // parent: RightHandThumb2 [89]
         }
         const int k_NumSkeletonJoints = 91;
+        private bool lockBool = false;
+        public Toggle lockButton;
 
         [SerializeField]
         [Tooltip("The root bone of the skeleton.")]
@@ -192,6 +196,9 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         public void ApplyBodyPose(ARHumanBody body)
         {
+            if(lockBool) {
+                return;
+            }
             var joints = body.joints;
             if (!joints.IsCreated)
                 return;
@@ -245,6 +252,14 @@ namespace UnityEngine.XR.ARFoundation.Samples
                 return (int)val;
             }
             return -1;
+        }
+
+         public void ButtonPressed() {
+            if (lockButton.isOn)
+                lockBool = false;
+            else
+                lockBool = true;
+            Debug.Log($"Lock is now {lockBool}");
         }
     }
 }
