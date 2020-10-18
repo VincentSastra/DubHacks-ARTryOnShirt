@@ -188,17 +188,6 @@ namespace UnityEngine.XR.ARFoundation.Samples
                     m_LocationCorrection[i] = given.transform.localPosition - bone.transform.localPosition;
                 }
             }
-
-            for (int i = 0; i < k_NumSkeletonJoints; i++) {
-                var bone = m_BoneMapping[i];
-                if (bone != null) {
-                    Console.WriteLine($"\n\n{bone}");
-                    Console.WriteLine($"{m_LocationCorrection[i]}");
-                    Console.WriteLine($"{m_RotationCorrection[i]}");
-                } else {
-                    Console.WriteLine($"Indice {i} not found.");
-                }
-            }
         }
 
         public void ApplyBodyPose(ARHumanBody body)

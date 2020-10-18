@@ -8,6 +8,8 @@ namespace UnityEngine.XR.ARFoundation.Samples
 {
     public class HumanBodyTracker : MonoBehaviour
     {
+        public bool update = false;
+
         [SerializeField]
         [Tooltip("The Skeleton prefab to be controlled.")]
         GameObject m_SkeletonPrefab;
@@ -50,6 +52,11 @@ namespace UnityEngine.XR.ARFoundation.Samples
 
         void OnHumanBodiesChanged(ARHumanBodiesChangedEventArgs eventArgs)
         {
+            if (!update)
+            {
+                return;
+            }
+
             BoneController boneController;
 
             foreach (var humanBody in eventArgs.added)
